@@ -10,14 +10,21 @@ import org.springframework.context.annotation.Configuration;
 public class ChatClientConfig {
     //FIRST STYLE OF CREATING A CHAT CLIENT
     @Bean
-    public ChatClient openAiChatClient(OpenAiChatModel openAiChatModel){
-        return ChatClient.create(openAiChatModel);
-    }
-    //SECOND STYLE - MORE CONTROLE TO DICTATE HOW CLIENT SHOULD WORK
-
-    @Bean
     public ChatClient ollamaChatClient(OllamaChatModel ollamaChatModel) {
-        ChatClient.Builder builder = ChatClient.builder(ollamaChatModel);
+        return ChatClient.create(ollamaChatModel);
+    }
+
+
+    //SECOND STYLE - MORE CONTROLE TO DICTATE HOW CLIENT SHOULD WORK
+    @Bean
+    public ChatClient openAiChatClient(OpenAiChatModel openAiChatModel){
+        ChatClient.Builder builder = ChatClient.builder(openAiChatModel);
+        builder.defaultSystem("You are a professional IT desk support");
         return builder.build();
     }
+
+
+
+
+
 }
