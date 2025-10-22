@@ -1,14 +1,14 @@
 spring:
   ai:
-    model:
-      chat: ollama
     ollama:
       chat:
         options:
           model: llama3.2:1b
-      #base-url:http:// URL TO THE Ollama HOST
     openai:
       api-key: ${OPENAI_API_KEY}
+    chat:
+      client:
+        enabled: false
   datasource:
     url: jdbc:postgresql://localhost:5432/inventory
     username: postgres
