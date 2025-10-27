@@ -26,8 +26,8 @@ public class PromptStuffing {
         return chatClient.prompt()
                 .system(systemPromptTemplate)
                 .user(message).call().content();
-        //NOTE: USE stuffing for a few line of info()
-        //FOR bigger amount of data feed use
+        //NOTE: USE stuffing for a few line of info(You will burn huge amount of tokens)
+        //FOR bigger amount of data feed use RAG
 
     }
 }
