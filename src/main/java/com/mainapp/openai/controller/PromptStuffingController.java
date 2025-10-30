@@ -5,19 +5,18 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 
-public class PromptStuffing {
+public class PromptStuffingController {
     private final ChatClient chatClient;
 
     @Value("classpath:/prompttemplate/systemPromptTemplate.st")
     Resource systemPromptTemplate;
 
-    public PromptStuffing(@Qualifier("openAiChatClient") ChatClient openAiChatClient) {
+    public PromptStuffingController(@Qualifier("openAiChatClient") ChatClient openAiChatClient) {
         this.chatClient = openAiChatClient;
     }
 
