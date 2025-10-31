@@ -1,5 +1,6 @@
 package com.mainapp.openai.controller;
 
+import com.mainapp.openai.customadvisor.TokenUsageAuditAdvisor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.SafeGuardAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
@@ -36,7 +37,10 @@ public class AdviserController {
 
     @GetMapping("/advice")
     public String advisor(@RequestParam("message")String message) {
-        List<Advisor> advisors = List.of(new SimpleLoggerAdvisor(), new SafeGuardAdvisor(List.of("password")));
+        TokenUsageAuditAdvisor tokenUsageAuditAdvisor = new TokenUsageAuditAdvisor();
+        SafeGuardAdvisor safeGuardAdvisor = new SafeGuardAdvisor(List.of("password"));
+        SimpleLoggerAdvisor simpleLoggerAdvisor = new SimpleLoggerAdvisor();
+        List<Advisor> advisors = List.of(simpleLoggerAdvisor,safeGuardAdvisor, tokenUsageAuditAdvisor);
         return chatClient.prompt().advisors(advisors)
                 .user(message).call().content();
     }
