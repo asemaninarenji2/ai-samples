@@ -27,7 +27,7 @@ public class ChatClientConfig {
     public ChatClient openAiChatClientWithOptions(OpenAiChatModel openAiChatModel){
         ChatOptions chatOptions = ChatOptions.builder().model("gpt-4.1-mini").maxTokens(200).temperature(0.8).build();
         ChatClient.Builder builder = ChatClient.builder(openAiChatModel);
-        builder.defaultSystem("You are a professional IT desk support");
+        builder.defaultSystem("You are an knowing oracle");
         builder.defaultOptions(chatOptions);
         return builder.build();
     }
