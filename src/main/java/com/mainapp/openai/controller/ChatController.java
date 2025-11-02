@@ -23,4 +23,17 @@ public class ChatController {
 
     }
 
+    //NOTE ON CONTENT METHOD:
+    // the method is user friendly method but there are other methods to use too;
+//---------------------------------------------------------------------------------------------------
+//        METHOD            |               Return type            |                Use case
+//---------------------------------------------------------------------------------------------------
+//    content()             |   Just the response as a String      |    Simple use case - display or print reply
+//  chatResponse()          |   A ChatResponse Obj                 |    Get full details like token usage
+//  ChatClientResponse(0    |   A ChatClientResponse Obj           |    Useful in RAG- Includes contexty &  Metadata
+//  entity(0                |   Converts response to POJO          |    Getting Java Objects (Structured Output
+
+
+
+
 }
