@@ -6,6 +6,7 @@ import org.springframework.ai.converter.BeanOutputConverter;
 import org.springframework.ai.converter.ListOutputConverter;
 import org.springframework.ai.converter.MapOutputConverter;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,6 +56,17 @@ public class StructuredOutputController {
         Map<String, Object> cities = chatClient.prompt().user(message).call().entity(new MapOutputConverter());
         return ResponseEntity.ok(cities);
 
+    }
+
+    @GetMapping("/object-list")
+    public ResponseEntity<List<CountryCities>> objectList(@RequestParam("message") String message) {
+
+        List<CountryCities> cities = chatClient.prompt()
+                .user(message).call().entity(new ParameterizedTypeReference<List<CountryCities>>() {
+                });
+        return ResponseEntity.ok(cities);
+        //NOTE: Here you want list of a complex Obj
+        //This case you have an obj which has properties : (String , List<String>)
     }
 
 }
