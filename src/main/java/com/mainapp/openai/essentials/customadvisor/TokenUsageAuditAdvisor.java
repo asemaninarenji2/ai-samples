@@ -1,8 +1,6 @@
-package com.mainapp.openai.customadvisor;
+package com.mainapp.openai.essentials.customadvisor;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.ILoggerFactory;
-import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.ChatClientRequest;
 import org.springframework.ai.chat.client.ChatClientResponse;
 import org.springframework.ai.chat.client.advisor.api.CallAdvisor;
