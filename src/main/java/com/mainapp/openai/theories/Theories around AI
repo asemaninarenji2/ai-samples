@@ -1,0 +1,448 @@
+AI
+Ai is umbrella term for all smart computers. Arrived in 1950's to make computer think like human.
+ML:
+sub set of AI. It is like teaching a computer to learn from examples not by giving it strict rules.
+Think of a child is shown 1000 pictures of cats in a period of time and eventually the child can recognise if
+there is a cat in a given image. Patterns are the key.
+DL(deep learning)
+Up to here AI and ML were able to solve very limited problems. DL is more advanced and mimics human brain and uses
+a structure called neural networks(NN). It uses layers and each layer has different learning and capabilities.
+Just like our brain understand not only the meaning but context, emotions, structure, DL uses its different parts
+to make sense of something in different layers and share those meaning to mimic human understanding of something.
+NN:
+the building blocks of deep learning. Each <<Artificial Neuron>> receives information, processes it an passes it on.
+connected in networks where each connection has different strengths.
+* they re fondation that makes deep learning possible.
+* they can find patterns humans might miss.
+* they get better with ore data and practice
+
+NLP; Natural Language Processing
+Helps us to communicate with AI models with our natural language.
+it processes the input and ables us to have natural communication with machines.
+
+GenAi(big category of Creative AI):
+- LLM (Txt)
+- Image generators : LIKE DALL-E
+- Music Generators
+- Video Generators
+
+Imagine building a robot chef:
+
+    AI: The robot’s ability to cook a meal.
+
+    ML: The robot learning recipes by watching cooking videos.
+
+    DL: The robot using a complex brain-like system to perfect its cooking.
+
+    NNs: The “wiring” in the robot’s brain that processes ingredients and steps.
+
+    NLP: The robot understanding your spoken order (“Make pasta!”).
+
+    GenAI: The robot inventing a new recipe.
+
+    LLMs:The robot writing a cookbook or explaining the recipe in detail.
+
+
+    ### 🔶 What is a Large Language Model (LLM)?
+    - LLMs are special AI systems trained on massive amounts of text from books, websites, and articles.
+    - They understand and generate human-like text.
+    - “Large” because they’re trained on billions of words and have billions of parameters.
+
+    ---
+
+    ### 🟢 How Do LLMs Learn?
+    - Trained using unsupervised learning.
+    - Learn patterns from billions of words and sentences.
+    - No manual labels needed — models learn by observing language.
+
+    ---
+
+    ### 🔴 Why Do LLMs Need So Much Power?
+    - Continuously calculate probabilities and patterns in text.
+    - Require massive computational resources, especially during training.
+    - Use GPUs for fast parallel processing (ideal for deep learning).
+
+
+
+
+    CPU VS GPU:
+    Sure! Here's a concise breakdown tailored to AI:
+
+    ### 🧠 CPU (Central Processing Unit)
+    - **General-purpose** processor for everyday tasks.
+    - Great for **logic, control**, and **sequential operations**.
+    - In AI: used for **model orchestration**, data loading, and running small models.
+
+    ### 🚀 GPU (Graphics Processing Unit)
+    - Designed for **parallel processing**—handling thousands of tasks at once.
+    - Ideal for **matrix math** and **deep learning** workloads.
+    - In AI: accelerates **training and inference** of large models like neural networks.
+
+    |-- ⚖️ Key Difference in AI----------------------------------------------------|
+    | Feature       | CPU                          | GPU                          |
+    |---------------|------------------------------|------------------------------|
+    | Task Type     | Sequential                   | Parallel                     |
+    | AI Role       | Control & orchestration      | Heavy computation (training) |
+    | Speed         | Slower for deep learning     | Much faster for DL tasks     |
+    | Use Case      | Small models, logic handling | Neural nets, GenAI, LLMs     |
+    |---------------|------------------------------|------------------------------|
+
+
+
+
+    ---
+
+    ### 🔴 GPT-4 is estimated to be trained on:
+    - 1 to 2 trillion tokens (roughly 300–500 billion words)
+    - Equivalent to reading:
+      - Over 1 million books
+      - Nearly the entire internet’s text content
+    - We’re at risk of running out of publicly available internet data to train LLMs on.
+
+    ---
+
+    ### 🔵 Few facts about LLMs training
+    - GPT-4 may have used 10,000 to 25,000 GPUs (NVIDIA A100 or H100)
+    - Training cost estimates range between $50M–$100M
+    - GPT-4 trained for tens of thousands of petaFLOP-days of compute
+    - GPT-4 likely took several weeks to a few months to train
+    - A human would take ~114 years reading 24/7 to consume the same amount of text as GPT-4 was trained on
+
+    ---
+
+    ### 🟣 Why are GPUs Used Instead of CPUs for LLMs?
+    - CPUs have a few powerful cores (usually 4–16), optimized for general-purpose tasks
+    - GPUs have thousands of smaller cores, perfect for doing many simpler operations at once
+    - AI training requires massive matrix and vector operations — such as multiplying large vectors and matrices
+    - GPUs are great at these massive, parallel processes, whereas CPUs would do it sequentially and much slower
+
+    ---
+
+    🔮 How LLMs Work
+
+    LLMs (Large Language Models) have one main job: Guessing the next word based on input provided. It’s like a super smart autocomplete.
+
+    Example: If you type Once upon a, the LLM might guess: time
+    🧠 Then, How Do We Get Full Sentences?
+
+    LLM Wrapper (like ChatGPT):
+
+        Makes LLMs user-friendly
+
+        Generates full sentences
+
+        Handles conversations
+
+        Provides the interface you interact with
+
+    Analogy: LLM = Engine Wrapper = Car
+
+    Trick: The LLM Wrapper uses the “Eating Its Own Output” trick to get a full response from bare LLM.
+
+
+🧠 How LLM Wrappers Manage Prompts and Stopping
+🔁 What Does the Wrapper D o?
+
+LLM wrappers repeatedly send the input prompt to the LLM to guess the next word — until it hits a stop signal or reaches a token limit.
+🧩 Example Prompt Flow
+
+User input: What is the capital of India?
+
+Wrapper sends to LLM: User: What is the capital of India?<end of prompt>
+
+This helps the LLM understand:
+
+    Where the input ends
+
+    That a response is expected
+
+    That this is a question from a user
+
+🛑 How Does the Wrapper Know When to Stop?
+
+LLMs can predict special tokens like: <end of text> → signals the end of generation
+
+Once the LLM outputs <end of text>, the wrapper stops the loop.
+🔄 Iterative Generation Example
+
+    Prompt: User: What is the capital of India?<end of prompt> → LLM generates: New Delhi is
+
+    Prompt: User: What is the capital of India?<end of prompt> New Delhi is → LLM generates: the capital
+
+    Prompt: User: What is the capital of India?<end of prompt> New Delhi is the capital → LLM generates: of India
+
+    Prompt: User: What is the capital of India?<end of prompt> New Delhi is the capital of India → LLM generates: <end of text> → Wrapper stops
+
+
+    🧠 Tokens, Not Words: How LLMs Really Predict
+    🔍 Misconception: “LLMs guess the next word”
+
+    Not quite! LLMs actually predict the next token, not full words.
+    🧩 What’s a Token?
+
+        A token is the basic unit of language for a model.
+
+        It can be:
+
+            A full word — isn’t, play, ing
+
+            A single character — a, !
+
+            A special keyword — <|end of text|>
+
+        Tokens are not the same as words. They’re pieces that models use to build words.
+
+    🔄 Why Tokens?
+
+        AI/LLM models don’t understand raw text.
+
+        Everything is converted into tokens (numbers) before processing.
+
+        The process of breaking text into tokens is called tokenization.
+
+    📏 Token Length Insight
+
+        For GPT-4, an average token is about ¾ the length of a word
+
+        So, 100 tokens ≈ 75 words
+
+    ✏️ Mathematical Foundations (from handwritten notes)
+
+    LLMs rely on deep learning math, including:
+
+        Probability & prediction: P(x), P(x∣y)P(x),\ P(x|y)
+
+        Loss functions & optimization: L=∑(yi−y^i)2, ∂L∂xL = \sum (y_i - \hat{y}_i)^2,\ \frac{\partial L}{\partial x}
+
+        Neural network operations: z=Wx+b, a=σ(z)z = Wx + b,\ a = \sigma(z)
+
+        Backpropagation chain rule: ∂L∂W=∂L∂a⋅∂a∂z⋅∂z∂W\frac{\partial L}{\partial W} = \frac{\partial L}{\partial a} \cdot \frac{\partial a}{\partial z} \cdot \frac{\partial z}{\partial W}
+
+
+        🧠 How LLMs Handle New, Misspelled, or Slang Words
+        🔍 Example: “playfulish”
+
+        Even though playfulish isn’t a dictionary word, LLMs can still understand it by breaking it into tokens:
+
+            play
+
+            ful
+
+            ish
+
+        These are familiar sub-word units the model has seen before.
+        🤖 Why This Works
+
+        LLMs are flexible because they:
+
+            Don’t rely on full words
+
+            Can process typos, slang, or new words
+
+            Use known token patterns to infer meaning
+
+        🔄 Behind the Scenes
+
+        Text → Tokens → Token IDs → Vectors
+
+            Tokenization splits text into manageable pieces
+
+            Each token is mapped to a unique ID
+
+            IDs are converted into vectors (numerical representations)
+
+
+ ---> While training, AI model reads the words and give each unique word a number(TOKEN ID)
+        - each token, a word has an internal meaning: eg: King -> a male, ruler, powerful, super rich etc
+        - token ids are associated with a vector number -> see vectors like an internal meaning for a token.
+
+        🧠 Vocabulary Lookup in LLMs
+        🔍 How LLMs Process Text
+
+        LLMs don’t work directly with raw text. Instead, they:
+
+            Use a fixed vocabulary of tokens
+
+            Each token has a unique ID
+
+            Text is converted into token IDs, which are then processed as numbers
+
+        📊 Vocabulary Sizes by Model
+            Model	    Vocabulary Size
+            ------------------------
+            GPT-4	    ~100,000 tokens
+            BERT	    ~30,000 tokens
+            Mixtral	    ~32,000 tokens
+
+        🔢 Token to ID Mapping
+            Token	    Token ID
+            ------------------
+            "King"	      1342
+            "Queen"	       39
+            "football"	   8121
+
+        This mapping allows LLMs to treat language as structured numerical data, enabling fast and efficient processing.
+
+        🧠 What Happens If a Token Isn’t Found in the Vocabulary?
+        🔍 Scenario:
+
+        Suppose the vocabulary includes:
+
+            "apple"
+
+            "phone"
+
+            "table"
+
+        But the input word is: "tabletop" → "tabletop" is not in the vocabulary.
+        🧩 How Does the Model Handle This?
+
+        LLMs use subword tokenization algorithms to break unknown words into smaller known pieces.
+
+        Example:
+
+            "tabletop" → ["table", "top"]
+
+            If "top" isn’t in the vocabulary, it may go further: → ["tab", "le", "to", "p"]
+
+        Each of these smaller tokens is more likely to exist in the vocabulary.
+        💡 One More Idea
+
+        If a whole word is unknown, the tokenizer splits it into the smallest number of known subword tokens.
+
+        Example:
+
+            "multicloudready" → ["multi", "cloud", "ready"]
+
+        This allows LLMs to handle compound words, neologisms, and domain-specific jargon with surprising flexibility.
+
+        🧠 Why LLMs Use Tokens Instead of Just Words or Characters
+        ❌ Why Not Just Use Words?
+
+        Language is too complex and unpredictable:
+
+            Some words are rare — e.g., unconstitutional
+
+            Some are misspelled — e.g., gud instead of good
+
+            Some are new or made-up — e.g., iPhone24
+
+            Some languages (like Chinese) don’t use spaces between words
+
+        ❌ Why Not Just Use Characters?
+
+        Characters are too small and inefficient:
+
+            To understand unbelievable, the model would need to process 12 separate steps: "u", "n", "b", "e", "l", "i", "e", "v", "a", "b", "l", "e"
+
+            This slows down training and makes comprehension harder — like reading one letter at a time
+
+        ✅ So LLMs Use Tokens — A Sweet Spot in Between
+
+        Tokens strike a balance:
+
+            More flexible than full words
+
+            More efficient than individual characters
+
+            Allow models to handle slang, typos, compound words, and multilingual input
+
+
+🧠 What Are Embeddings?
+🔍 Definition
+
+An embedding is:
+
+    A list of numbers (also called a vector)
+
+    Each number tells us how much a word relates to a concept
+
+📐 In Math Terms
+
+A vector is just a sequence of numbers:
+V=[v1,v2,v3,v4,v5,v6]\mathbf{V} = [v_1, v_2, v_3, v_4, v_5, v_6]
+
+Each value viv_i represents how strongly the word aligns with a specific concept (e.g., royalty, power, gender).
+🌟 Meaning Beyond Spelling
+
+Traditional AI:
+
+    Thinks of “King” as just the letters K-I-N-G
+
+Modern AI with embeddings:
+
+    Understands “King” as: 👑 ruler, male, royalty, powerful, leader
+
+So we turn the word into a meaningful vector of numbers that captures its semantic essence, not just its spelling.
+
+
+🧠 Embeddings: A Way to Represent Meaning
+🔍 What Are Embeddings?
+
+    Each token (like “king”) becomes a long list of numbers
+
+    These numbers form a vector that captures subtle meanings and patterns
+
+    Embeddings allow models to understand semantic relationships, not just spelling
+
+
+🧠 A Simple Imaginary Embedding for “King” (Vector Style)
+
+Let’s imagine an embedding vector for the word “King” using 5 conceptual topics:
+📌 Topics:
+
+    Royalty
+
+    Female
+
+    Leadership
+
+    Strength
+
+    Fictional
+
+🔹 Embedding Vector for King
+[95.5, −80, 75, 60, 20][95.5,\ -80,\ 75,\ 60,\ 20]
+
+Interpretation:
+
+    95.5 → Strongly related to Royalty
+
+    -80 → Strongly not related to Female
+
+    75 → Highly related to Leadership
+
+    60 → Quite strong Strength
+
+    20 → Slightly Fictional
+
+🔹 Embedding Vector for Queen
+[95.5, 80, 70, 55, 20][95.5,\ 80,\ 70,\ 55,\ 20]
+
+Interpretation:
+
+    Similar to “King” in Royalty, Leadership, and Strength
+
+    Major difference in Female dimension (+80 vs. -80)
+
+This illustrates how embeddings capture semantic nuance—not just spelling, but conceptual relationships across multiple dimensions. Let me know if you’d like to explore how these vectors are used in similarity search or analogy reasoning.
+
+
+📐 Embedding Sizes by Model
+Model	Embedding Size
+GPT-3	12,288
+LLaMA 3 (small)	4,096
+LLaMA 3 (large)	16,384
+🌌 Why So Many Dimensions?
+
+    Embedding vectors live in high-dimensional space
+
+    Similar tokens tend to cluster together based on meaning
+
+    These clusters aren’t visually obvious but are mathematically powerful
+
+--->>> IN SHORT : word -> tokenId -> vector number -> vector # has all the meaning learnt for the word.
+example world mail might have vector#= 8.0 and female = -8.0(exact opposite) . if you ask llm what would be vector number 0 -> friend, family, class etc(all gender neutrals)
+---> each vector for each word is considered as a dimension , LLMs are using thusands of dimension these days. 
+---->>> Language model -> training on the words ->  completes token id table for words -> create vectors etc
+---->>> when using the llm wrapper -> sentence to tokens -> positional embedding -> transformer architecture -> multiple attention layers work on importance of the words -> processing starts
