@@ -28,5 +28,13 @@ public class MemoryChatClientController {
 
     // In Order for chatClient remember the history of the chat.
     // -> ChatMemory interface ==> 1. InMemoryChatMemoryRepository 2.JdbcChatMemoryRepository
+    // -> MessageWindowChatMemory contains get, add , clear etc methods to save previous messages in
+    // ChatMemory classes and then with use of MessageChatMemoryAdvisor we can use old messages in chat(FULL CHAT including user, system assistance messages)
+    // ChatMemory advisors:
+        //1.MessageChatMemoryAdvisor: above
+    //  //2.PromptChatMemoryAdvisor :  converts memory into plain text format, appends it to the system prompt lime a summery , good for simple LLMs oe when token budget is limited
+    //  //3.VectorStorChatMemoryAdvisor : for using message of very long time say 3 month ago
+//            It stores databases like Qdrant, Pinecone , then retrives the most relevant past messages using embeddings
+//            ideal for long or knowledge-based conversations( semantic memory)
 
 }

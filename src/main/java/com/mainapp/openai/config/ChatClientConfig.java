@@ -1,12 +1,17 @@
 package com.mainapp.openai.config;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
+import org.springframework.ai.chat.client.advisor.api.Advisor;
+import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
 
 @Configuration
 public class ChatClientConfig {
@@ -33,12 +38,12 @@ public class ChatClientConfig {
         return builder.build();
     }
     @Bean("chatClientWithMemory")
-    public ChatClient chatClientWithMemory(OpenAiChatModel openAiChatModel){
-        ChatClient.Builder builder = ChatClient.builder(openAiChatModel);
-
-        return builder.build();
+    public ChatClient chatClientWithMemory(OpenAiChatModel chatModel, ChatMemory chatMemory){
+        ChatClient.Builder builder = ChatClient.builder(chatModel);
+        Advisor advisor = MessageChatMemoryAdvisor.builder(chatMemory).build();
+        Advisor advisorLogger = new SimpleLoggerAdvisor();
+        return builder.defaultAdvisors(List.of(advisor, advisorLogger)).build();
     }
-
 
 
 
