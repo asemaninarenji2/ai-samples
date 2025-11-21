@@ -4,14 +4,13 @@ import org.springframework.ai.chat.client.ChatClient;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.ai.chat.memory.ChatMemory.CONVERSATION_ID;
 
 
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/memory")
 public class MemoryChatClientController {
     private final ChatClient chatClient;
 
@@ -19,7 +18,7 @@ public class MemoryChatClientController {
         this.chatClient = chatClient;
     }
 
-    @GetMapping("/memory")
+    @GetMapping("/default-conversation-id")
     public ResponseEntity<String> memory(@RequestParam("message")String message) {
 
         return ResponseEntity.ok(chatClient.prompt()
@@ -37,4 +36,19 @@ public class MemoryChatClientController {
 //            It stores databases like Qdrant, Pinecone , then retrives the most relevant past messages using embeddings
 //            ideal for long or knowledge-based conversations( semantic memory)
 
+    @GetMapping("/unique-conversation-id")
+    public ResponseEntity<String> memoryDifferentConversationId(@RequestHeader("username") String username,
+            @RequestParam("message")String message) {
+
+        return ResponseEntity.ok(chatClient.prompt()
+                .user(message)
+                .advisors(advisorSpec -> advisorSpec.param(CONVERSATION_ID, username))
+                //NOTE THAT: in bean creation the bean already setting MessageChatMemoryAdvisor as advisor
+                //here we only provide a unique id to advisor in advisor overloaded method
+                // the labmda is calling param method and CONVERSATION_ID is from ChatMemory class
+                //REMEMBER: Conversation with Chat memory is through
+                // InMemoryChatMemoryRepository implements ChatMemoryRepository which has concurrentHashMap and all add delete methods
+                //
+                .call().content());
+    }
 }
