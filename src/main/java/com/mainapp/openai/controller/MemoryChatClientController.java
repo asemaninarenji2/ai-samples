@@ -51,4 +51,12 @@ public class MemoryChatClientController {
                 //
                 .call().content());
     }
+    //TO Retain all the chat history even after restart of application , you should save the chats in DB
+    // H2 in memory:
+    //  - set these setting to save the h2 content in a file to be retrieved after restart
+    //      spring.datasource.url=jdbc:h2:file:~/chatmemory; AUto_SERVER=true  <- save in file and retrieve after restart
+    //      spring.datasource.driver-class-name=org.h2.driver
+    //      spring.datasource.username=username
+    //      spring.datasource.password=password
+
 }
