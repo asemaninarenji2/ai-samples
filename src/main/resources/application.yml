@@ -13,6 +13,13 @@ spring:
     chat:
       client:
         enabled: false
+      memory:
+        repository:
+          jdbc:
+            datasource: primary
+            initialize-schema: always
+            schema: classpath:schemas/schema-h2db.sql
+
   datasource:
     primary:
       jdbc-url: jdbc:h2:mem:test
