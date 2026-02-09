@@ -1,4 +1,8 @@
 spring:
+  sql:
+    init:
+      schema-locations: classpath:schemas/schema-h2db.sql
+      mode: always
   ai:
     ollama:
       chat:
@@ -10,10 +14,18 @@ spring:
       client:
         enabled: false
   datasource:
-    url: jdbc:postgresql://localhost:5432/inventory
-    username: postgres
-    password: postgres
-    driver-class-name: org.postgresql.Driver
+    primary:
+      jdbc-url: jdbc:h2:mem:test
+      driver-class-name: org.h2.Driver
+      username: h2
+      password: h2
+      console:
+        enabled: true
+    secondary:
+      jdbc-url: jdbc:postgresql://localhost:5432/inventory
+      driver-class-name: org.postgresql.Driver
+      username: postgres
+      password: postgres
 
   jpa:
     hibernate:
@@ -21,7 +33,8 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.H2Dialect
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
 
 logging:
   level:
