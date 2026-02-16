@@ -1,7 +1,6 @@
 package com.mainapp.openai.controller;
 
 import org.springframework.ai.chat.client.ChatClient;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
