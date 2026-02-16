@@ -21,9 +21,10 @@ public class ChatOptionsController {
 
     @GetMapping("/use")
     public String chat(@RequestParam("message")String message){
-        OpenAiChatOptions specificOtions = OpenAiChatOptions.builder().model(OpenAiApi.ChatModel.CHATGPT_4_O_LATEST).build();
+        OpenAiChatOptions specificOptions = OpenAiChatOptions.builder().model(OpenAiApi.ChatModel.CHATGPT_4_O_LATEST).build();
         return chatClient.prompt().user(message)
-                .advisors(new SimpleLoggerAdvisor()).options(specificOtions)
+                .advisors(new SimpleLoggerAdvisor())
+                .options(specificOptions)
                 .call().content();
     }
     //NOTE: The config bean is using generic options for all models
