@@ -19,6 +19,9 @@ spring:
             datasource: primary
             initialize-schema: always
             schema: classpath:schemas/schema-h2db.sql
+    chatmemory:
+      jdbc:
+        enabled: true
 
   datasource:
     primary:
@@ -29,7 +32,7 @@ spring:
       console:
         enabled: true
     secondary:
-      jdbc-url: jdbc:postgresql://localhost:5432/inventory
+      jdbc-url: jdbc:postgresql://localhost:5432/ai
       driver-class-name: org.postgresql.Driver
       username: postgres
       password: postgres
