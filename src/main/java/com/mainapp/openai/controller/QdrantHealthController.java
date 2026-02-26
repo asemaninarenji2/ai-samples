@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets;
 @RestController
 @RequestMapping("/api/health")
 @Slf4j
-public class HealthController {
+public class QdrantHealthController {
 
     @GetMapping("/qdrant")
     public ResponseEntity<String> checkQdrantHealth() {
