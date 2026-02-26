@@ -13,8 +13,8 @@ import static org.springframework.ai.chat.memory.ChatMemory.CONVERSATION_ID;
 public class MemoryChatClientController {
     private final ChatClient chatClient;
 
-    public MemoryChatClientController(@Qualifier("chatClientWithMemory") ChatClient chatClient) {
-        this.chatClient = chatClient;
+    public MemoryChatClientController(@Qualifier("chatClientWithMemory") ChatClient chatClientWithMemory) {
+        this.chatClient = chatClientWithMemory;
     }
 
     @GetMapping("/default-conversation-id")
