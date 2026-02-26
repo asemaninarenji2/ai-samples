@@ -46,7 +46,7 @@ You give a prompt
 
 RAG = Retrieval + Augmentation + Generation
 A smart way to give language models access to external knowledge so they can give better, more accurate answers.
-
+''
 USER: tell me about product X.
 - Retriever: Search company docs, PDFs, or a vector database
 - Augmenter: Picks the most relevant chunks of text
@@ -61,5 +61,9 @@ USER: tell me about product X.
 ![RAG Architecture Diagram](RAG08.jpg)
 
 Find more about supported vector databases:[Spring AI Documentation](https://docs.spring.io/spring-ai/reference/index.html)
+
+Note: VectorStore is required in spring to communicate with Vectore db.
+    VectorStore injects (QdrantClient, EmbeddingModel)
+- for Multi model applicatin with 2 EmbeddingModels (different vector sizes) configuration is needed. check QdrantMultiModelConfig.java
 
 
