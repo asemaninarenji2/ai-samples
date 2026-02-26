@@ -4,6 +4,16 @@ spring:
       schema-locations: classpath:schemas/schema-h2db.sql
       mode: always
   ai:
+    vectorstore:
+      qdrant:
+        host: localhost
+#        port: 6333          # HTTP port
+        grpc-port: 6334     # gRPC port
+        use-tls: false
+        collection-name: eazybytes
+        initial-schema: true
+        embedding-dimension: 1536
+        transport: grpc
     ollama:
       chat:
         options:
@@ -22,7 +32,6 @@ spring:
     chatmemory:
       jdbc:
         enabled: true
-
   datasource:
     primary:
       jdbc-url: jdbc:h2:mem:test
@@ -36,7 +45,6 @@ spring:
       driver-class-name: org.postgresql.Driver
       username: postgres
       password: postgres
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -45,7 +53,6 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
 #        dialect: org.hibernate.dialect.PostgreSQLDialect
-
 logging:
   level:
     org:
