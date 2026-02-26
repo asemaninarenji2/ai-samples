@@ -22,6 +22,9 @@ spring:
           model: llama3.2:1b
     openai:
       api-key: ${OPENAI_API_KEY}
+      embedding:
+        model: text-embedding-3-small
+        dimensions: 1536
     chat:
       client:
         enabled: false
