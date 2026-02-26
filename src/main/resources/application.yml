@@ -66,3 +66,6 @@ logging:
           chat:
             client:
               advisor: DEBUG
+loader:
+  random-data-loader: false
+  pdf-data-loader: false

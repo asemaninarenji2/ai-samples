@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class ChatClientConfig {
     //FIRST STYLE OF CREATING A CHAT CLIENT
     @Bean("ollamaChatClient")
-    public ChatClient chatClient(OllamaChatModel ollamaChatModel) {
+    public ChatClient ollamaChatClient(OllamaChatModel ollamaChatModel) {
         return ChatClient.create(ollamaChatModel);
     }
 
