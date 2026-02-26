@@ -1,5 +1,6 @@
 package com.mainapp.openai.config;
 
+import com.mainapp.openai.essentials.customadvisor.TokenUsageAuditAdvisor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
@@ -28,7 +29,8 @@ public class MemoryChatClientConfig {
         ChatClient.Builder builder = ChatClient.builder(chatModel);
         Advisor advisor = MessageChatMemoryAdvisor.builder(chatMemory).build();
         Advisor advisorLogger = new SimpleLoggerAdvisor();
-        return builder.defaultAdvisors(List.of(advisor, advisorLogger)).build();
+        Advisor tokenUsageAdvisor = new TokenUsageAuditAdvisor();
+        return builder.defaultAdvisors(List.of(advisor, advisorLogger, tokenUsageAdvisor)).build();
     }
 
 }
