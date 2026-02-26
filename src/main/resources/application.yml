@@ -3,6 +3,8 @@ spring:
     init:
       schema-locations: classpath:schemas/schema-h2db.sql
       mode: always
+  docker:
+    compose.stop.command: down
   ai:
     vectorstore:
       qdrant:
