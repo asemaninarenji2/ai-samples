@@ -17,6 +17,7 @@ java {
 
 repositories {
 	mavenCentral()
+	maven { url 'https://repo.spring.io/snapshot' }
 }
 
 ext {
@@ -50,6 +51,7 @@ dependencies {
 	implementation 'com.h2database:h2'
     implementation 'org.springframework.ai:spring-ai-tika-document-reader'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 	compileOnly 'org.projectlombok:lombok:1.18.30'
 	annotationProcessor 'org.projectlombok:lombok:1.18.30'
 	runtimeOnly 'org.postgresql:postgresql:42.6.0'
@@ -61,6 +63,7 @@ dependencies {
 dependencyManagement {
 	imports {
 		mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:2025.0.0"
 	}
 }
 
