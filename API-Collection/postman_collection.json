@@ -1,0 +1,560 @@
+{
+  "info": {
+    "name": "OpenAI Spring Boot API Collection",
+    "description": "Complete API collection for OpenAI Spring Boot application with all endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Chat APIs",
+      "item": [
+        {
+          "name": "Basic Chat",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/chat?message=Hello, how are you?",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "chat"],
+              "query": [
+                {
+                  "key": "message",
+                  "value": "Hello, how are you?",
+                  "description": "The message to send to the AI"
+                }
+              ]
+            },
+            "description": "Basic chat endpoint using OpenAI ChatClient"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Advisor APIs",
+      "item": [
+        {
+          "name": "Chat with Advisors",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/advisor/advice?message=What is the weather today?",
+              "host": ["{{baseUrl}}"],
+              "path": ["advisor", "advice"],
+              "query": [
+                {
+                  "key": "message",
+                  "value": "What is the weather today?",
+                  "description": "Message to be processed with advisors (TokenUsageAuditAdvisor, SafeGuardAdvisor, SimpleLoggerAdvisor)"
+                }
+              ]
+            },
+            "description": "Chat with multiple advisors for logging, safety, and token usage auditing"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Chat Options APIs",
+      "item": [
+        {
+          "name": "Chat with Specific Options",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/options/use?message=Explain quantum computing",
+              "host": ["{{baseUrl}}"],
+              "path": ["options", "use"],
+              "query": [
+                {
+                  "key": "message",
+                  "value": "Explain quantum computing",
+                  "description": "Message to be processed with specific OpenAI options (GPT-4-O-LATEST model)"
+                }
+              ]
+            },
+            "description": "Chat using specific OpenAI chat options (GPT-4-O-LATEST model with SimpleLoggerAdvisor)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Memory Chat APIs",
+      "item": [
+        {
+          "name": "Chat with Default Memory",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/memory/default-conversation-id?message=Remember my name is John",
+              "host": ["{{baseUrl}}"],
+              "path": ["memory", "default-conversation-id"],
+              "query": [
+                {
+                  "key": "message",
+                  "value": "Remember my name is John",
+                  "description": "Message with conversation memory using default conversation ID"
+                }
+              ]
+            },
+            "description": "Chat with memory using default conversation ID"
+          }
+        },
+        {
+          "name": "Chat with Unique Memory",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "username",
+                "value": "john_doe",
+                "description": "Unique identifier for conversation memory"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/memory/unique-conversation-id?message=What did I tell you before?",
+              "host": ["{{baseUrl}}"],
+              "path": ["memory", "unique-conversation-id"],
+              "query": [
+                {
+                  "key": "message",
+                  "value": "What did I tell you before?",
+                  "description": "Message with conversation memory using unique conversation ID from header"
+                }
+              ]
+            },
+            "description": "Chat with memory using unique conversation ID from username header"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Multi-Model APIs",
+      "item": [
+        {
+          "name": "OpenAI Chat",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/multi/openai/chat?message=Hello from OpenAI",
+              "host": ["{{baseUrl}}"],
+              "path": ["multi", "openai", "chat"],
+              "query": [
+                {
+                  "key": "message",
+                  "value": "Hello from OpenAI",
+                  "description": "Message to send to OpenAI model"
+                }
+              ]
+            },
+            "description": "Chat using OpenAI model specifically"
+          }
+        },
+        {
+          "name": "Ollama Chat",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/multi/ollama/chat?message=Hello from Ollama",
+              "host": ["{{baseUrl}}"],
+              "path": ["multi", "ollama", "chat"],
+              "query": [
+                {
+                  "key": "message",
+                  "value": "Hello from Ollama",
+                  "description": "Message to send to Ollama model"
+                }
+              ]
+            },
+            "description": "Chat using Ollama model specifically"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Prompt Template APIs",
+      "item": [
+        {
+          "name": "Email Template",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/prompt/email?customerName=John Doe&customerMessage=I need help with my order",
+              "host": ["{{baseUrl}}"],
+              "path": ["prompt", "email"],
+              "query": [
+                {
+                  "key": "customerName",
+                  "value": "John Doe",
+                  "description": "Name of the customer"
+                },
+                {
+                  "key": "customerMessage",
+                  "value": "I need help with my order",
+                  "description": "Customer's message or issue"
+                }
+              ]
+            },
+            "description": "Generate email response using template with customer name and message parameters"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Prompt Stuffing",
+      "item": [
+        {
+          "name": "Prompt Stuffing",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/prompt-stuffing?message=What are the company policies?",
+              "host": ["{{baseUrl}}"],
+              "path": ["prompt-stuffing"],
+              "query": [
+                {
+                  "key": "message",
+                  "value": "What are the company policies?",
+                  "description": "Message to be processed with system prompt template from file"
+                }
+              ]
+            },
+            "description": "Chat with system prompt template loaded from file (prompt stuffing)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "RAG (Retrieval Augmented Generation) APIs",
+      "item": [
+        {
+          "name": "Manual Vector Search",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "username",
+                "value": "john_doe",
+                "description": "Username for conversation memory"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/rag/manual-search/data?message=What are the HR policies?",
+              "host": ["{{baseUrl}}"],
+              "path": ["rag", "manual-search", "data"],
+              "query": [
+                {
+                  "key": "message",
+                  "value": "What are the HR policies?",
+                  "description": "Query for manual vector search with similarity threshold 0.5 and topK=3"
+                }
+              ]
+            },
+            "description": "RAG with manual vector store search using system prompt template"
+          }
+        },
+        {
+          "name": "Advisor RAG Search",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "username",
+                "value": "john_doe",
+                "description": "Username for conversation memory"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/rag/advisor-search/data?message=Tell me about employee benefits",
+              "host": ["{{baseUrl}}"],
+              "path": ["rag", "advisor-search", "data"],
+              "query": [
+                {
+                  "key": "message",
+                  "value": "Tell me about employee benefits",
+                  "description": "Query for RAG using Retrieval Augmentation Advisor"
+                }
+              ]
+            },
+            "description": "RAG using Retrieval Augmentation Advisor (automatic context injection)"
+          }
+        },
+        {
+          "name": "Web Search RAG",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "username",
+                "value": "john_doe",
+                "description": "Username for conversation memory"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/rag/web-search/data?message=What are the latest AI trends?",
+              "host": ["{{baseUrl}}"],
+              "path": ["rag", "web-search", "data"],
+              "query": [
+                {
+                  "key": "message",
+                  "value": "What are the latest AI trends?",
+                  "description": "Query for RAG with web search integration (requires Tavily API key)"
+                }
+              ]
+            },
+            "description": "RAG with web search integration for latest information (requires Tavily API configuration)"
+          }
+        },
+        {
+          "name": "Advanced RAG Search",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "username",
+                "value": "john_doe",
+                "description": "Username for conversation memory"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/rag/advisor-search/advanced-rag/data?message= مدت اطلاعیه مرخصی من چقدر است؟",
+              "host": ["{{baseUrl}}"],
+              "path": ["rag", "advisor-search", "advanced-rag", "data"],
+              "query": [
+                {
+                  "key": "message",
+                  "value": "Explain the company structure",
+                  "description": "Query for advanced RAG with memory and retrieval augmentation"
+                }
+              ]
+            },
+            "description": "Advanced RAG with memory and retrieval augmentation advisors"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Streaming APIs",
+      "item": [
+        {
+          "name": "Stream Chat",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/stream/stream?message=Tell me a story",
+              "host": ["{{baseUrl}}"],
+              "path": ["stream", "stream"],
+              "query": [
+                {
+                  "key": "message",
+                  "value": "Tell me a story",
+                  "description": "Message to stream response from AI"
+                }
+              ]
+            },
+            "description": "Streaming chat response using Flux (Server-Sent Events)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Structured Output APIs",
+      "item": [
+        {
+          "name": "POJO Output",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/structured/pojo?message=List 5 countries and their main cities",
+              "host": ["{{baseUrl}}"],
+              "path": ["structured", "pojo"],
+              "query": [
+                {
+                  "key": "message",
+                  "value": "List 5 countries and their main cities",
+                  "description": "Message to get structured POJO response (CountryCities object)"
+                }
+              ]
+            },
+            "description": "Get structured response as POJO (CountryCities object)"
+          }
+        },
+        {
+          "name": "Bean Output",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/structured/bean?message=List 3 countries and their main cities",
+              "host": ["{{baseUrl}}"],
+              "path": ["structured", "bean"],
+              "query": [
+                {
+                  "key": "message",
+                  "value": "List 3 countries and their main cities",
+                  "description": "Message to get structured BeanOutputConverter response"
+                }
+              ]
+            },
+            "description": "Get structured response using BeanOutputConverter"
+          }
+        },
+        {
+          "name": "List Output",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/structured/list?message=List 5 programming languages",
+              "host": ["{{baseUrl}}"],
+              "path": ["structured", "list"],
+              "query": [
+                {
+                  "key": "message",
+                  "value": "List 5 programming languages",
+                  "description": "Message to get structured List response"
+                }
+              ]
+            },
+            "description": "Get structured response as List<String>"
+          }
+        },
+        {
+          "name": "Map Output",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/structured/map?message=Categorize these animals: lion, eagle, shark",
+              "host": ["{{baseUrl}}"],
+              "path": ["structured", "map"],
+              "query": [
+                {
+                  "key": "message",
+                  "value": "Categorize these animals: lion, eagle, shark",
+                  "description": "Message to get structured Map response"
+                }
+              ]
+            },
+            "description": "Get structured response as Map<String, Object>"
+          }
+        },
+        {
+          "name": "Object List Output",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/structured/object-list?message=List 3 countries each with 3 main cities",
+              "host": ["{{baseUrl}}"],
+              "path": ["structured", "object-list"],
+              "query": [
+                {
+                  "key": "message",
+                  "value": "List 3 countries each with 3 main cities",
+                  "description": "Message to get structured List<CountryCities> response"
+                }
+              ]
+            },
+            "description": "Get structured response as List<CountryCities> (complex object list)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "System Message APIs",
+      "item": [
+        {
+          "name": "Role-based Chat",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/role/chat?message=Help me with a task",
+              "host": ["{{baseUrl}}"],
+              "path": ["role", "chat"],
+              "query": [
+                {
+                  "key": "message",
+                  "value": "Help me with a task",
+                  "description": "Message for role-based chat"
+                }
+              ]
+            },
+            "description": "Basic chat endpoint (similar to /api/chat but under /role path)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health Check APIs",
+      "item": [
+        {
+          "name": "Check Qdrant Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/health/qdrant",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "health", "qdrant"]
+            },
+            "description": "Check if Qdrant vector database is running and accessible"
+          }
+        },
+        {
+          "name": "Create Qdrant Collection",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/health/qdrant/collection",
+              "host": ["baseUrl"],
+              "path": ["api", "health", "qdrant", "collection"]
+            },
+            "description": "Create 'eazybytes' collection in Qdrant with 1536-dimensional vectors and Cosine distance"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Database Connection APIs",
+      "item": [
+        {
+          "name": "Test PostgreSQL Connection",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/test-postgres",
+              "host": ["{{baseUrl}}"],
+              "path": ["test-postgres"]
+            },
+            "description": "Test connection to PostgreSQL database"
+          }
+        }
+      ]
+    }
+  ]
+}
