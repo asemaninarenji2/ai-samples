@@ -66,4 +66,9 @@ Note: VectorStore is required in spring to communicate with Vectore db.
     VectorStore injects (QdrantClient, EmbeddingModel)
 - for Multi model applicatin with 2 EmbeddingModels (different vector sizes) configuration is needed. check QdrantMultiModelConfig.java
 
+---
+# **Naive RAG Vs. Advanced RAG**
+![RAG Architecture Diagram](RAG09.jpg)
+![RAG Architecture Diagram](RAG10.jpg)
+
 
