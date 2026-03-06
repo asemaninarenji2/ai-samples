@@ -84,5 +84,5 @@ bootRun.dependsOn composeUp
 // Auto-stop when bootRun finishes
 // With this (more reliable):
 bootRun.doLast {
-    composeDown.execute()
+    tasks.composeDown
 }
