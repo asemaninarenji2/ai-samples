@@ -71,4 +71,9 @@ Note: VectorStore is required in spring to communicate with Vectore db.
 ![RAG Architecture Diagram](RAG09.jpg)
 ![RAG Architecture Diagram](RAG10.jpg)
 
+- In Advanced Rag we use Pre-Retrieval be fore Retrieval and Post-Retrieval before Augmentation
+    - ADVANCED RAG - for more effective retrieval tasks, addressing challenges such as poor formed queries, ambiguous tems, complex vocabulary, unsupported languages etc
+    - Naive RAG:  Retrieve --> Augmentation --> Generation
+    - Advanced RAG:  Pre-retrieval ---> Retrieve ---> Post-retrieval --> Augmentation --> Generation
+
 
