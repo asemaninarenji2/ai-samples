@@ -1,15 +1,18 @@
 package com.mainapp.openai.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
 @RestController
 @RequestMapping("/stream")
+@Tag(name = "Streaming", description = "Streaming chat endpoints for real-time responses")
 public class StreamController {
     private final ChatClient chatClient;
 
@@ -18,7 +21,15 @@ public class StreamController {
     }
 
     @GetMapping("/stream")
-    public Flux<String> stream(@RequestParam("message")String message) {
+    @Operation(summary = "Streaming chat response", description = "Get streaming chat response for real-time interaction")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Successful streaming response"),
+        @ApiResponse(responseCode = "400", description = "Invalid message parameter"),
+        @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    public Flux<String> stream(
+            @Parameter(description = "User message for streaming response", required = true, example = "Tell me a story")
+            @RequestParam("message")String message) {
 
         return chatClient.prompt()
                 .user(message).stream().content();

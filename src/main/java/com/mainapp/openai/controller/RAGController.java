@@ -1,5 +1,13 @@
 package com.mainapp.openai.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.headers.Header;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.document.Document;
@@ -19,6 +27,7 @@ import static org.springframework.ai.chat.memory.ChatMemory.CONVERSATION_ID;
 @Slf4j
 @RestController
 @RequestMapping("/rag")
+@Tag(name = "RAG - Retrieval Augmented Generation", description = "RAG endpoints for document-based AI responses")
 public class RAGController {
     private final VectorStore vectorStore;
     private final ChatClient chatClient;
@@ -43,8 +52,18 @@ public class RAGController {
     }
 
     @GetMapping("/manual-search/data")
-    public ResponseEntity<String> pdfData(@RequestHeader("username") String username,
-                                             @RequestParam("message") String message) {
+    @Operation(summary = "Manual vector search with context", description = "Manual search in vector store with context injection")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Successful response with retrieved context", 
+                    headers = @Header(name = "Content-Type", description = "Response content type")),
+        @ApiResponse(responseCode = "400", description = "Invalid parameters"),
+        @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    public ResponseEntity<String> pdfData(
+            @Parameter(description = "Username for conversation tracking", required = true, example = "testuser")
+            @RequestHeader("username") String username,
+            @Parameter(description = "Search query for vector store", required = true, example = "What is HR?")
+            @RequestParam("message") String message) {
         SearchRequest searchRequest = SearchRequest.builder()
                 .query(message)
                 .topK(3)
@@ -62,8 +81,17 @@ public class RAGController {
 
     //NOTE: above method is using manual search in vector store. the below method uses Retrieval Augmentation Advisor
     @GetMapping("/advisor-search/data")
-    public ResponseEntity<String> augmentedSearch(@RequestHeader("username") String username,
-                                          @RequestParam("message") String message) {
+    @Operation(summary = "Advisor-based RAG search", description = "RAG search using advisor pattern for automatic context retrieval")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Successful response with automatic context"),
+        @ApiResponse(responseCode = "400", description = "Invalid parameters"),
+        @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    public ResponseEntity<String> augmentedSearch(
+            @Parameter(description = "Username for conversation tracking", required = true, example = "testuser")
+            @RequestHeader("username") String username,
+            @Parameter(description = "Search query for RAG", required = true, example = "HR policies")
+            @RequestParam("message") String message) {
         //NOTE: NO NEED for systemPrompt population like :system(promptSystemSpec ->
         //                        promptSystemSpec.text(hrSystemTemplate).param("documents", similarContext)
         // the advisor will look after it automatically
@@ -89,8 +117,17 @@ public class RAGController {
 
     //Web Search ----------------------------->
     @GetMapping("/web-search/data")
-    public ResponseEntity<String> getChatClient(@RequestHeader("username") String username,
-                                                @RequestParam("message") String message) {
+    @Operation(summary = "Web search RAG", description = "RAG with web search integration for current information")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Successful response with web search results"),
+        @ApiResponse(responseCode = "400", description = "Invalid parameters"),
+        @ApiResponse(responseCode = "503", description = "Web search service unavailable")
+    })
+    public ResponseEntity<String> getChatClient(
+            @Parameter(description = "Username for conversation tracking", required = true, example = "testuser")
+            @RequestHeader("username") String username,
+            @Parameter(description = "Query for web search and AI response", required = true, example = "Latest AI trends 2024")
+            @RequestParam("message") String message) {
         String answer = webSearchRAGChatClient.prompt().advisors(a ->
                         a.param(CONVERSATION_ID, username)).user(message).call().content();
         return ResponseEntity.ok(answer);
@@ -98,8 +135,17 @@ public class RAGController {
     //<----------------------------------------
 
     @GetMapping("/advisor-search/advanced-rag/data")
-    public ResponseEntity<String> augmentedSearchAdvancedRag(@RequestHeader("username") String username,
-                                                  @RequestParam("message") String message) {
+    @Operation(summary = "Advanced RAG with PII masking", description = "Advanced RAG with multiple retrieval strategies and PII masking")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Successful response with advanced context and PII protection"),
+        @ApiResponse(responseCode = "400", description = "Invalid parameters"),
+        @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    public ResponseEntity<String> augmentedSearchAdvancedRag(
+            @Parameter(description = "Username for conversation tracking", required = true, example = "testuser")
+            @RequestHeader("username") String username,
+            @Parameter(description = "Query for advanced RAG processing", required = true, example = "Employee information")
+            @RequestParam("message") String message) {
 
         String answer = chatClientWithMemoryAndRetrievalAugmentationAndAdvancedRAG.prompt().advisors(a -> a.param(CONVERSATION_ID, username))
                 .user(message)

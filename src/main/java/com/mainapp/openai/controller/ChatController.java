@@ -1,15 +1,17 @@
 package com.mainapp.openai.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
+@Tag(name = "Basic Chat", description = "Basic chat endpoints using OpenAI")
 public class ChatController {
     private final ChatClient chatClient;
 
@@ -18,7 +20,15 @@ public class ChatController {
     }
 
     @GetMapping("/chat")
-    public String chat(@RequestParam("message") String message) {
+    @Operation(summary = "Simple chat with OpenAI", description = "Basic chat interaction with OpenAI model")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Successful response"),
+        @ApiResponse(responseCode = "400", description = "Invalid message parameter"),
+        @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    public String chat(
+            @Parameter(description = "User message to send to AI", required = true, example = "Hello, how are you?")
+            @RequestParam("message") String message) {
         return chatClient.prompt(message).call().content();
 
     }

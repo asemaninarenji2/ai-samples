@@ -1,5 +1,10 @@
 package com.mainapp.openai.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -7,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.ai.chat.memory.ChatMemory.CONVERSATION_ID;
 
-
 @RestController
 @RequestMapping("/memory")
+@Tag(name = "Memory & Conversation", description = "Chat endpoints with memory and conversation tracking")
 public class MemoryChatClientController {
     private final ChatClient chatClient;
 
@@ -18,7 +23,15 @@ public class MemoryChatClientController {
     }
 
     @GetMapping("/default-conversation-id")
-    public ResponseEntity<String> memory(@RequestParam("message")String message) {
+    @Operation(summary = "Default conversation memory", description = "Chat with default conversation memory (no user tracking)")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Successful response with default memory"),
+        @ApiResponse(responseCode = "400", description = "Invalid message parameter"),
+        @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    public ResponseEntity<String> memory(
+            @Parameter(description = "User message", required = true, example = "Remember my favorite color")
+            @RequestParam("message")String message) {
 
         return ResponseEntity.ok(chatClient.prompt()
                 .user(message).call().content());
@@ -36,7 +49,16 @@ public class MemoryChatClientController {
 //            ideal for long or knowledge-based conversations( semantic memory)
 
     @GetMapping("/unique-conversation-id")
-    public ResponseEntity<String> memoryDifferentConversationId(@RequestHeader("username") String username,
+    @Operation(summary = "User-specific conversation memory", description = "Chat with user-specific conversation memory and tracking")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Successful response with user-specific memory"),
+        @ApiResponse(responseCode = "400", description = "Invalid parameters"),
+        @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    public ResponseEntity<String> memoryDifferentConversationId(
+            @Parameter(description = "Unique user identifier for conversation tracking", required = true, example = "john_doe")
+            @RequestHeader("username") String username,
+            @Parameter(description = "User message", required = true, example = "What did we discuss earlier?")
             @RequestParam("message")String message) {
 
         return ResponseEntity.ok(chatClient.prompt()
